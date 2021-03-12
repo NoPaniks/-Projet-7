@@ -1,0 +1,26 @@
+ETAPE 1 : 
+
+Page HTML (responsive)
+Map interactive dessus
+8 restaurants 	=========> Avec leur note moyenne visible
+		=========> au clique sur le restaurant 	=========> affiche les commentaires
+							=========> affiche la photo street view
+		=========> Un outil de filtre en fonction de la note moyenne (étoile)
+		=========> Prévoir que la carte n'affiche que les restaurants demandé.
+
+
+
+ETAPE 2 : 
+
+Ajouter un avis sur un restaurant existant
+
+Ajouter un restaurant en cliquant sur un lieu spécifique de la carte
+		=========> Prévoir la fonction detection de la position de la souris ?
+		=========> les infos doivent apparaitre directement sur la carte
+		=========> les informations ne seront pas sauvegardé si on quitte la page
+			=========> donc pas de modification du JSON, faire uniquement en Objet
+
+
+ETAPE 3 : 
+
+intégré la SEARCH API ( GOOGLE PLACES ) pour récupérer d'autres restaurant et avis dans la zone affiché.

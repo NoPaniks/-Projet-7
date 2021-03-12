@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/style.css">
+    <title>Abo Resto - DAF Projet 7</title>
+</head>
+<body>
+    <header class="row d-flex justify-content-center">
+        <h1>Abo Resto !</h1>
+    </header>
+    <main>
+        <div class="container" class="row d-flex justify-content-between">
+            <div id="leftAndMiddle" class="row d-flex justify-content-between">
+                <div id="side-left" class="col-3 text-center flex-column">
+                    <div>
+                        <h3>Sélectionner la note</h3>
+                    </div>
+                    <div id="firstRowStar" class="form-check">
+                        <ul class="d-flex justify-content-between">
+                            <li><input class="form-check-input" type="checkbox" value="" id="oneStar"/>
+                                <label class="form-check-label" for="flexCheckDefault"> 1 étoile </label></li>
+                            <li><input class="form-check-input" type="checkbox" value="" id="twoStar"/>
+                                <label class="form-check-label" for="flexCheckDefault"> 2 étoiles </label></li>
+                            <li><input class="form-check-input" type="checkbox" value="" id="threeStar"/>
+                                <label class="form-check-label" for="flexCheckDefault"> 3 étoiles </label></li>
+                        </ul>
+                    </div>
+                    <div id="secondRowStar" class="form-check ">
+                        <ul class="d-flex justify-content-around">
+                            <li><input class="form-check-input" type="checkbox" value="" id="fourStar"/>
+                                <label class="form-check-label" for="flexCheckDefault"> 4 étoiles </label></li>
+                            <li><input class="form-check-input" type="checkbox" value="" id="fiveStar"/>
+                                <label class="form-check-label" for="flexCheckDefault"> 5 étoiles </label></li>
+                        </ul>
+                    </div>
+                    <div id="selectRestaurant"></div>
+                </div>
+                <div id="middle" class="col-6">
+                    <div id="map">
+                    </div>
+                </div>
+                <div id="side-right" class="col-3 text-center">
+                    <div id="restaurantInfo">
+                        <div id="restaurantName"></div>
+                        <div id="restaurantDetails">
+                            <div id="restaurantImage"></div>
+                            <div id="restaurantAdress"></div>
+                        </div>
+                        <div id="restaurantComment">
+                            <div id="restaurantCommentTitle">Commentaires</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="googleStreet" class="col">
+                <div id="googleStreetTitle">
+                    <h3>Google Street view</h3>
+                </div>
+                <div id="googleStreetImage"></div>
+            </div>
+            
+        </div>
+        
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1UzDu9tfrHhpV_QcXAP5Yubctg0_tbCc&callback=initMap"> </script>
+    <script src="json/restaurant.json"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>
+    
+</body>
+</html>
