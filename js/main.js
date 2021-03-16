@@ -9,11 +9,16 @@ jQuery.when(
     let restos = [];
     for (let i = 0 ; i< json.length ; i++) {
         restos[i] = new Resto (json.length,i+1,json[i].restaurantName,json[i].address,json[i].lat,json[i].long,json[i].ratings);
-        restos[i].generateRestaurant();
+        restos[i].displayRestaurant();
     }
-    
-        
-        
+    let averageForAll = [];
+        for (let i = 0; i<json.length; i++) {
+            averageForAll.push(restos[i].calculateAverage());
+        } 
+    $('.form-check-input').click(()=> {
+        restos[0].checkBoxchecked(averageForAll); //on lance sur restos[0] juste pour avoir accès, marche sur n'importe quel restos[i] en réalité.
+    });
+          
 });
 
 console.log("test HORS FONCTION RECUP JSON");
