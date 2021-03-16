@@ -54,7 +54,8 @@
                             <div id="restaurantAdress"></div>
                         </div>
                         <div id="restaurantComment">
-                            <div id="restaurantCommentTitle">Commentaires</div>
+                            <div> <h3>Commentaires</h3></div>
+                            <div id="comment"></div>
                         </div>
                     </div>
                 </div>
@@ -69,12 +70,17 @@
         </div>
         
     </main>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <!-- API GOOGLE MAP -->
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1UzDu9tfrHhpV_QcXAP5Yubctg0_tbCc&callback=initMap"> </script>
-    <script src="json/restaurant.json"></script>
+    <!-- SCRIPT Perso -->
+    <script type="module" src="json/restaurant.json"></script>
+    <script type="module" src="js/restaurant.js"></script>
     <script src="js/map.js"></script>
-    <script src="js/main.js"></script>
+    
+    <script type="module" src="js/main.js"></script>
     
 </body>
 </html>

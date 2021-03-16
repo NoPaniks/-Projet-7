@@ -20,5 +20,14 @@ li {
 #map {
     height: 100%;
     width: 100%;
-  }
-  
+}
+
+#selectRestaurant>div {
+    margin-top: 15px;
+    background-color: rgba(0, 0, 255, 0.445);
+    border-radius: 5px;
+}
+#selectRestaurant>div:hover {
+    background-color: rgba(0, 102, 255, 0.678);
+    zoom: 1.2;
+}
