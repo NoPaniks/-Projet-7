@@ -16,6 +16,7 @@ jQuery.when(
             averageForAll.push(restos[i].calculateAverage());
         } 
     $('.form-check-input').click(()=> {
+        $(".resto").hide();
         restos[0].checkBoxchecked(averageForAll); //on lance sur restos[0] juste pour avoir accès, marche sur n'importe quel restos[i] en réalité.
     });
           
@@ -24,37 +25,6 @@ jQuery.when(
 console.log("test HORS FONCTION RECUP JSON");
 // TOUT CET ESPACE EST CHARGER AVANT LE FICHIER JSON
 // DONC TOUT CE QUI EST ECRIT EN DESSOUS DE CECI NE POURRA PAS PRENDRE EN COMPTE UNE INFORMATION DU JSON 
-
-
-
-/*
-// FIN du TEST de recup !
-
-// Ecriture des noms de restaurants dans la partie gauche de la page Web
-    let domTest = $('#selectRestaurant');
-    domTest.html("");
-    
-    for (let i = 0; i < json.length ; i++ ) {
-        let box = $('<div>').addClass(json[i].restaurantName);
-        box.html(json[i].restaurantName)
-        domTest.append(box);
-    }
-// Fin de l'écriture des noms de restaurants
-    
-
-function getRatings(json[i].restaurantName) {
-    let domComment = $('#comment');
-    let box = $('<div>').addClass("restaurantComment");
-    box.html(json[i].restaurantName.ratings[y].comment);
-    domComment.append(box);
-}
-
-$('.'+Bronco).click( {
-    getRatings(json[i].restaurantName)
-});
-
-
-*/
 
 
 // TEST TEST TEST TEST TEST TEST TEST

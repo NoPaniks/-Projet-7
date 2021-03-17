@@ -7,6 +7,7 @@ export default class Resto {
         this.lat = lat;
         this.long = long;
         this.ratings = ratings;
+        this.displayOnMap(this.long,this.lat,this.name);
         /* 
         $('#selectRestaurant').html(this.name);
         $('#restaurantName').html(this.name);
@@ -20,6 +21,10 @@ export default class Resto {
             box.html(this.name);
             box.click(()=> {
                 this.displayComment()
+                $('#restaurantName').html(this.name);
+                $("#restaurantImage").html(this.lat);
+                $("#restaurantAdress").html(this.adress);
+                $("#restaurantAverage").html("Note moyenne : "+this.calculateAverage());
             });
             domWrite.append(box);
     }
@@ -33,11 +38,25 @@ export default class Resto {
             domWrite.append(box);
         }
     }
+    displayOnMap(long, lat, name) {
+        const marker = new google.maps.Marker({
+            position:{lat:lat, lng:long},
+            map:map,
+         });
+    
+         //Info Window : 
+         let detailWindow = new google.maps.InfoWindow({
+            content : `<h2>`+name+`</h2>`
+        });
+            marker.addListener("mouseover", () => {
+                detailWindow.open(map,marker);
+            })
+    }
     calculateAverage() {
         let ratingStar = [];
         let notation = "";
-        for (let y = 0; y < this.ratings.length ; y++) { //pour la longueure total du nombre de commentaires
-            notation = this.ratings[y].stars // je prend chaque note (stars)
+        for (let y = 0; y < this.ratings.length ; y++) { //pour la longueure total du nombre de commentaires du restaurant
+            notation = this.ratings[y].stars // je prend chaque note (stars) de chaque commentaire
             ratingStar.push(notation); // que je pousse dans mon tableau ratingStar
         }
         function numAverage(ratingStar) { //je réalise une fonction MOYENNE avec comme parametre chaque note (stars)
@@ -48,12 +67,11 @@ export default class Resto {
             }
             return Math.round(c/b); //arrondit la valeur de la moyenne
           }
-        return numAverage(ratingStar); // je retourne la moyenne de chaque restaurant
+        return numAverage(ratingStar); // je retourne la moyenne d'un restaurant
     }
-    displayCheckedRestaurant(min,max,averageForAll) {
-        $(".resto").hide();
+    displayCheckedRestaurant(min,max,averageForAll) { //averageForAll à été créer dans le fichier MAIN.js
         for (let i = 0; i<this.size; i++) {
-            if (averageForAll[i]>=min && averageForAll[i]<max) {
+            if (averageForAll[i]>=min && averageForAll[i]<max) { 
                 $("#resto-"+(i+1)).show();
             }
         }
@@ -61,6 +79,7 @@ export default class Resto {
     checkBoxchecked(averageForAll) {
         if ($('input[name=oneStar]').is(':checked') ) {
             this.displayCheckedRestaurant(1,2,averageForAll);
+            //afficher que les restaurants de moyenne 
         }
         else if ($('input[name=twoStar]').is(':checked') ) {
             this.displayCheckedRestaurant(2,3,averageForAll);

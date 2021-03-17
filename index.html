@@ -13,15 +13,13 @@
 </head>
 <body>
     <header class="row d-flex justify-content-center">
-        <h1>Abo Resto !</h1>
+        <h1>ABO RESTO !</h1>
     </header>
     <main>
         <div class="container" class="row d-flex justify-content-between">
             <div id="leftAndMiddle" class="row d-flex justify-content-between">
                 <div id="side-left" class="col-3 text-center flex-column">
-                    <div>
-                        <h3>Sélectionner la note</h3>
-                    </div>
+                    <div><h3>Sélectionner la note</h3></div>
                     <div id="firstRowStar" class="form-check">
                         <ul class="d-flex justify-content-between">
                             <li><input type="checkbox" class="form-check-input" name="oneStar"/>1 étoile</li>
@@ -47,12 +45,13 @@
                         <div id="restaurantDetails">
                             <div id="restaurantImage"></div>
                             <div id="restaurantAdress"></div>
-                        </div>
-                        <div id="restaurantComment">
-                            <div> <h3>Commentaires</h3></div>
-                            <div id="comment"></div>
+                            <div id="restaurantAverage"></div>
                         </div>
                     </div>
+                        <div id="restaurantComment">
+                            <div><h3>Commentaires</h3></div>
+                            <div id="comment"></div>
+                        </div>
                 </div>
             </div>
             <div id="googleStreet" class="col">
@@ -71,9 +70,9 @@
     <!-- API GOOGLE MAP -->
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1UzDu9tfrHhpV_QcXAP5Yubctg0_tbCc&callback=initMap"> </script>
     <!-- SCRIPT Perso -->
+    <script src="js/map.js"></script>
     <script type="module" src="json/restaurant.json"></script>
     <script type="module" src="js/restaurant.js"></script>
-    <script src="js/map.js"></script>
     <script type="module" src="js/main.js"></script>
     
 </body>

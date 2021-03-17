@@ -1,29 +1,29 @@
 function initMap() {
-    // MAP OPTION : 
-    let options = {
-        center :{ lat: 48.0591, lng: -0.935265 },
-        zoom: 15
-     }
+    map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: new google.maps.LatLng(48.886169, 2.343104),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    }
     
-     //CREATE MAP
-    map = new google.maps.Map(document.getElementById("map"),options)
-
-     //CREATE MARKER : 
-     const marker = new google.maps.Marker({
-        position:{lat:48.06439285125025, lng:-0.9311328668047022},
-        map:map,
-        //ICON CHANGE : 
-        icon:"https://img.icons8.com/nolan/1x/marker.png"
-     });
-
-     //Info Window : 
-     let detailWindow = new google.maps.InfoWindow({
-        content : `<h2>Le Lac de Ouf de Loiron</h2>`
-    });
-        marker.addListener("mouseover", () => {
-            detailWindow.open(map,marker);
-        })
-
+if (navigator.geolocation)
+var watchId = navigator.geolocation.watchPosition(successCallback,
+                            null,
+                            {enableHighAccuracy:true});
+else
+alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
+    
+function successCallback(position){
+map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+    map: map,
+    icon:"https://img.icons8.com/nolan/1x/marker.png"
+});
+}
+    
+    
+    
     /* https://www.youtube.com/watch?v=uPhWSyRqQDA
     function addMarker(location) {
         const marker = new google.maps.Marker({
@@ -56,5 +56,35 @@ function initMap() {
         location:{lat:..............., lng:..............},
     })
     */
-}
+
+
+
+/* ============>>>>> 1er essai au dessus de LOIRON avec marker au niveau du lac
+function initMap() {
+    // MAP OPTION : 
+    let options = {
+        center :{ lat: 48.886169, lng: 2.343104 },
+        zoom: 15
+     }
+    
+     //CREATE MAP
+    map = new google.maps.Map(document.getElementById("map"),options)
+
+     //CREATE MARKER : 
+     const marker = new google.maps.Marker({
+        position:{lat:48.06439285125025, lng:-0.9311328668047022},
+        map:map,
+        //ICON CHANGE : 
+        icon:"https://img.icons8.com/nolan/1x/marker.png"
+     });
+
+     //Info Window : 
+     let detailWindow = new google.maps.InfoWindow({
+        content : `<h2>Le Lac de Ouf de Loiron</h2>`
+    });
+        marker.addListener("mouseover", () => {
+            detailWindow.open(map,marker);
+        })
+
+*/
 
