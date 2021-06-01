@@ -43,6 +43,12 @@ $(document).on("click","#addRestaurant",function() {//Ajout de restaurants
     let newLong = parseFloat(sessionStorage.getItem("newLong"));
     let newComment = document.getElementById("newComment").value;
     let surname = document.getElementById("Surname").value;
+    let now = new Date();
+    let annee   = now.getFullYear(); 
+    let mois    = now.getMonth() + 1;
+    let jour    = now.getDate();
+    let heure   = now.getHours();
+    let minute  = now.getMinutes();
 
     if(newName.length > 0) { //si il y a un nom de restaurant présent dans le champs de formulaire alors : 
         let rating = [{
