@@ -42,9 +42,15 @@ $(document).on("click","#addRestaurant",function() {//Ajout de restaurants
     let newLat = parseFloat(sessionStorage.getItem("newLat"));
     let newLong = parseFloat(sessionStorage.getItem("newLong"));
     let newComment = document.getElementById("newComment").value;
+    let surname = document.getElementById("Surname").value;
 
     if(newName.length > 0) { //si il y a un nom de restaurant présent dans le champs de formulaire alors : 
-        let rating = [{stars : starsSelected, comment : newComment}];
+        let rating = [{
+            stars : starsSelected, 
+            comment : newComment, 
+            name : surname, 
+            date : jour+"/"+mois+"/"+annee+" à "+heure+"h"+minute 
+        }];
         rName.push(newName); rAddress.push(newAddress); rLat.push(newLat); rLong.push(newLong);rRatings.push(rating);
         let i = restos.length; //on met i à la valeur de restos.length pour avoir un nouvel index
         restos[i] = new Resto (i+1,rName[i],rAddress[i],rLat[i],rLong[i],rRatings[i]);
@@ -76,7 +82,7 @@ $(document).on("click","#addComment",function() {//Ajout des commentaires
         stars : starsSelected,
         comment : newComment,
         name : surname,
-            date : jour+"/"+mois+"/"+annee+" à "+heure+"h"+minute
+        date : jour+"/"+mois+"/"+annee+" à "+heure+"h"+minute
         };
     rRatings[index].push(rating); //on prend la valeur de l'index Globale pour push dans le bon tableau de rRatings (voir lignes 26-31)
     restos[index].displayComment(rRatings[index]);
