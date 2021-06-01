@@ -83,7 +83,6 @@ map.addListener("click", (mapsMouseEvent) => { //permet l'ajout de restaurant vi
     let b  = mapsMouseEvent.latLng.toJSON();
     sessionStorage.setItem("newLat",b.lat); //on envoi la Latitude par le sessionStorage
     sessionStorage.setItem("newLong",b.lng);//on envoi la Longitude par le sessionStorage
-    console.log(mapsMouseEvent);
     });
 }
 

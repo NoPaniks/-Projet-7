@@ -194,7 +194,7 @@ $("#gplaces").click(function(){
                 restos[i].displayRestaurant();
             }
             addMarkers(restos);
-            showVisibleMarkers(rRatings)
+            showVisibleMarkers(rRatings);
     }   
     
 
