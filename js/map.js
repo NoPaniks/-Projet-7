@@ -1,90 +1,123 @@
-function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 15,
-            center: new google.maps.LatLng(48.886169, 2.343104),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-    }
-    
-if (navigator.geolocation)
-var watchId = navigator.geolocation.watchPosition(successCallback,
-                            null,
-                            {enableHighAccuracy:true});
-else
-alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
-    
-function successCallback(position){
-map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-var marker = new google.maps.Marker({
-    position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-    map: map,
-    icon:"https://img.icons8.com/nolan/1x/marker.png"
-});
+let map ; let markers = []; let element;
+let userlng;
+let userlat;
+
+if (navigator.geolocation) {
+    var watchId = navigator.geolocation.watchPosition(successCallback,
+        null,
+        {enableHighAccuracy:true});
 }
-    
-    
-    
-    /* https://www.youtube.com/watch?v=uPhWSyRqQDA
-    function addMarker(location) {
-        const marker = new google.maps.Marker({
-            position: location,
-            map:map,
-            icon:"https://img.icons8.com/nolan/1x/marker.png"
-        });
-    }
-    addMarker({lat:48.06439285125025, lng:-0.9311328668047022});
-    =====> On pourait passer en argument le tableau JSON du coup.
-    */
+else {
+    alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
+}
+function successCallback(position){
+userlng = position.coords.longitude;
+userlat = position.coords.latitude;
 
-    /* OU FAIRE çà : 
-    function addMarker(property) {
-        const marker = new google.maps.Marker({
-            position: property.location,
-            map:map,
-            icon: property.imageIcon
-        });
-    }
-    addMarker({  créer un marker avec un style d'icone
-        location:{lat:48.06439285125025, lng:-0.9311328668047022},
-        imageIcon: "https://img.icons8.com/nolan/1x/marker.png"
-    })
-    addMarker({ créer un marker avec un autre style d'icone
-        location:{lat:..............., lng:..............},
-        imageIcon: ".............."
-    })
-    addMarker({ créer un marker avec le style icone par défaut
-        location:{lat:..............., lng:..............},
-    })
-    */
+sessionStorage.setItem("userlat",userlat);
+sessionStorage.setItem("userlng",userlng);
 
-
-
-/* ============>>>>> 1er essai au dessus de LOIRON avec marker au niveau du lac
-function initMap() {
-    // MAP OPTION : 
-    let options = {
-        center :{ lat: 48.886169, lng: 2.343104 },
-        zoom: 15
-     }
-    
-     //CREATE MAP
-    map = new google.maps.Map(document.getElementById("map"),options)
-
-     //CREATE MARKER : 
-     const marker = new google.maps.Marker({
-        position:{lat:48.06439285125025, lng:-0.9311328668047022},
-        map:map,
-        //ICON CHANGE : 
+    let markerUser = new google.maps.Marker({
+        position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+        map: map,
         icon:"https://img.icons8.com/nolan/1x/marker.png"
-     });
-
-     //Info Window : 
-     let detailWindow = new google.maps.InfoWindow({
-        content : `<h2>Le Lac de Ouf de Loiron</h2>`
     });
-        marker.addListener("mouseover", () => {
-            detailWindow.open(map,marker);
-        })
+};
+function initMap() {
+    let mapOptions = {
+        zoom: 13,
+        center: new google.maps.LatLng(userlat, userlng),
+        mapId : 'd4bc720774e69f9d' //correspond à l'id de la map dans le MAP STYLE de google (personnalisé par S.Gilbert)
+    };
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
 
-*/
+
+function addMarkers(restos) {
+    $.each(markers, function() {
+        this.setMap(null);
+        });
+    markers= []; //RAZ du tableau des marqueurs
+    for (let i = 0; i < restos.length; i++) {
+            const markerLetter = String.fromCharCode("A".charCodeAt(0) + (i % 26));
+            let myLatLng = new google.maps.LatLng(restos[i].lat, restos[i].long),
+            marker = new google.maps.Marker({
+                position: myLatLng,
+                title: restos[i].name,
+                animation: google.maps.Animation.DROP,
+                id : restos[i].id-1,
+                label : markerLetter
+            });
+            
+        //Info Window :
+        const contentString = 
+            "<h6>"+restos[i].name+"</h6>" +
+            "<br><p>"+ restos[i].address + "</p>" +
+            '<br><img src="https://maps.googleapis.com/maps/api/streetview?size=200x200&location='+restos[i].lat+","+restos[i].long+
+            '&fov=80&heading=70&pitch=0&key=AIzaSyB1UzDu9tfrHhpV_QcXAP5Yubctg0_tbCc"</img>';
+
+        const InfoWindow = new google.maps.InfoWindow({
+            content : contentString,
+            });
+        //Ajoute un écouteur de clique sur chaque Marker
+        marker.addListener("click", () => {
+            InfoWindow.open(map,marker);
+        })		
+        marker.setMap(map);
+        // Place le marqueur dans le tableau global
+        markers.push(marker);
+    }
+
+map.addListener("click", (mapsMouseEvent) => { //permet l'ajout de restaurant via le /main.js
+    var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+        keyboard: true,
+        focus : true
+        })
+        myModal.show();
+        $("#formRestaurant")[0].reset();
+        $("#addComment").hide();
+        $("#Name").show();
+        $("#Address").show();
+        $("#addRestaurant").show();
+        $("#addComment").hide();
+    let b  = mapsMouseEvent.latLng.toJSON();
+    sessionStorage.setItem("newLat",b.lat); //on envoi la Latitude par le sessionStorage
+    sessionStorage.setItem("newLong",b.lng);//on envoi la Longitude par le sessionStorage
+    console.log(mapsMouseEvent);
+    });
+}
+
+$(document).on("click",".form-check-input",function() {
+    element = ($(this));
+});
+ function showVisibleMarkers(averageTab) { //gère les restaurant visible dans la partie de gauche
+    let tabId = [];
+    let bounds = map.getBounds();
+    
+    let min = document.getElementById("filterRanking").value;
+        for (let i = 0; i < markers.length; i++) { //on boucle sur le nombre de markers qui est = au nombre de restaurants
+            let marker = markers[i],
+            infoPanel = $("#restaurant-" + (i+1) ); //on dit que l'infoPanel est = à l'id de chaque restaurant
+            infoPanel.hide(); // on cache tous les restaurants de la map ! (dans le panel de gauche)
+            // console.log("infoPanel : "+infoPanel[0].id);       Renvoi le nom complet des restaurants présent dans la Base de données       
+            if (bounds.contains(marker.getPosition())===true) {
+                let infoPanelId = (infoPanel[0].id).replace("restaurant-",""); // Pour chaque marker présent dans la map affichée : on récupère l'id du restaurant en supprimant "restaurant-" placé devant.
+                //console.log(infoPanelId);
+                tabId.push(infoPanelId-1); // on retire "1" pour avoir l'index du restaurant présent à l'affichage dans la map
+                // console.log("ID contenu dans la map : "+(infoPanelId-1));    Renvoi le numéro INDEX du/des restaurant(s) présent dans la map
+            }
+        }
+        for (let i = 0 ; i < markers.length ; i++) {
+            markers[i].setVisible(false);
+        }
+        for (let i = 0; i < tabId.length ; i++) {
+            if (averageTab[tabId[i]] >= min ) {
+                $("#restaurant-"+(tabId[i]+1)).show(); // on affiche le restaurants présent dans la map qui a pour index : tabId[i]+1 (récupérer ligne 72)
+                markers[tabId[i]].setVisible(true);
+            }
+        }
+}
+
+
+export { initMap, addMarkers, showVisibleMarkers,map };
 

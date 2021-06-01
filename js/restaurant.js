@@ -1,98 +1,106 @@
 export default class Resto {
-    constructor (size,id,name,adress,lat,long,ratings) {
-        this.size = size;
+    constructor (id,name,address,lat,long,ratings) {
         this.id = id;
         this.name = name;
-        this.adress = adress;
+        this.address = address;
         this.lat = lat;
         this.long = long;
         this.ratings = ratings;
-        this.displayOnMap(this.long,this.lat,this.name);
-        /* 
-        $('#selectRestaurant').html(this.name);
-        $('#restaurantName').html(this.name);
-        $('#restaurantAdress').html(this.adress);
-        */
     }
-    displayRestaurant() {
-            let domWrite = $('#selectRestaurant');
-            let box = $('<div>').addClass("resto");
-            box.attr('id','resto-'+this.id);
-            box.html(this.name);
-            box.click(()=> {
-                this.displayComment()
-                $('#restaurantName').html(this.name);
-                $("#restaurantImage").html(this.lat);
-                $("#restaurantAdress").html(this.adress);
-                $("#restaurantAverage").html("Note moyenne : "+this.calculateAverage());
-            });
-            domWrite.append(box);
-    }
-    displayComment() {
-        $("#comment").empty();
-        for (let i = 0; i < this.ratings.length ; i++) {
-            let domWrite = $('#comment');
-            let box = $('<div>').addClass("comment");
-            box.attr('id','comment-'+i);
-            box.html(this.ratings[i].comment);
-            domWrite.append(box);
-        }
-    }
-    displayOnMap(long, lat, name) {
-        const marker = new google.maps.Marker({
-            position:{lat:lat, lng:long},
-            map:map,
-         });
-    
-         //Info Window : 
-         let detailWindow = new google.maps.InfoWindow({
-            content : `<h2>`+name+`</h2>`
+
+    displayRestaurant() { //gère l'affichage de chaque restaurant
+        let domWrite = $('#selectRestaurant');
+        let box = $('<div>').addClass("restaurant align-self-center");
+        let id = String.fromCharCode("A".charCodeAt(0) + (this.id-1 % 26));
+        box.attr('id',"restaurant-"+this.id);
+        box.html(id+" - "+this.name);
+        box.click(()=> {
+            $('#restaurantName').html(this.name);
+            $("#restaurantAddress").html(this.address);
+            $("#restaurantAverage").show();
+            $("#restaurantComment").show();
         });
-            marker.addListener("mouseover", () => {
-                detailWindow.open(map,marker);
-            })
+        domWrite.append(box);
     }
-    calculateAverage() {
-        let ratingStar = [];
-        let notation = "";
-        for (let y = 0; y < this.ratings.length ; y++) { //pour la longueure total du nombre de commentaires du restaurant
-            notation = this.ratings[y].stars // je prend chaque note (stars) de chaque commentaire
-            ratingStar.push(notation); // que je pousse dans mon tableau ratingStar
-        }
-        function numAverage(ratingStar) { //je réalise une fonction MOYENNE avec comme parametre chaque note (stars)
-            var b = ratingStar.length,
-                c = 0, i;
-            for (i = 0; i < b; i++){
-              c += Number(ratingStar[i]);
+    displayComment(tab) { //gère l'affichage des commentaires 
+        $('#containerComment').empty();
+        let white = "white";
+        let grey = "grey";
+        for (let i = 0; i < tab.length ; i++) {
+            if(i%2 == 0) {
+                this.constructorComment(tab,i,white)
             }
-            return Math.round(c/b); //arrondit la valeur de la moyenne
-          }
-        return numAverage(ratingStar); // je retourne la moyenne d'un restaurant
-    }
-    displayCheckedRestaurant(min,max,averageForAll) { //averageForAll à été créer dans le fichier MAIN.js
-        for (let i = 0; i<this.size; i++) {
-            if (averageForAll[i]>=min && averageForAll[i]<max) { 
-                $("#resto-"+(i+1)).show();
+            else {
+                this.constructorComment(tab,i,grey)
             }
+            this.showStreetView();
         }
     }
-    checkBoxchecked(averageForAll) {
-        if ($('input[name=oneStar]').is(':checked') ) {
-            this.displayCheckedRestaurant(1,2,averageForAll);
-            //afficher que les restaurants de moyenne 
+    showAverage(tab) {//Récupère la note moyenne et l'affiche sur la page
+        let average = [];
+        for (let y = 0 ; y < tab.length; y++) {
+            average.push(tab[y].stars);
         }
-        else if ($('input[name=twoStar]').is(':checked') ) {
-            this.displayCheckedRestaurant(2,3,averageForAll);
+        $("#restaurantAverage").html("Note moyenne : "+ this.numAverage(average)); // j'affiche la moyenne du restaurant
+    }
+    numAverage(average) { //Calcul de la note moyenne du restaurant
+        var b = average.length,
+            c = 0, i;
+        for (i = 0; i < b; i++){
+          c += Number(average[i]);
         }
-        else if ($('input[name=threeStar]').is(':checked') ) {
-            this.displayCheckedRestaurant(3,4,averageForAll);
-        }
-        else if ($('input[name=fourStar]').is(':checked') ) {
-            this.displayCheckedRestaurant(4,5,averageForAll);
-        }
-        else if ($('input[name=fiveStar]').is(':checked') ) {
-            this.displayCheckedRestaurant(5,5,averageForAll);
-        }
-        else this.displayCheckedRestaurant(0,5,averageForAll);
+        let n = (c/b);
+        return n.toPrecision(2); //arrondit la valeur de la moyenne
+    }
+    showStreetView() {//Gère l'affichage de l'image StreetView
+        let streetImage = document.createElement("img");
+        streetImage.src = "https://maps.googleapis.com/maps/api/streetview?size=400x400&location="+this.lat+","+this.long+
+        "&fov=80&heading=70&pitch=0&key=AIzaSyB1UzDu9tfrHhpV_QcXAP5Yubctg0_tbCc";
+        streetImage.style.height = '200px';
+        streetImage.style.width = '200px';
+        $("#restaurantImage").html(streetImage);
+    }
+    constructorComment(tab,i,color) {
+        let domWriteContainer = $('#containerComment');
+            let boxComment = $('<div>').addClass("commentContainer"+i+" d-flex flex-column "+color);
+            boxComment.attr('id','comment'+i);
+            domWriteContainer.append(boxComment);
+
+            let domWriteA = $('#comment'+i);
+            let box12 = $('<div>').addClass("firstRowComment d-flex flex-start");
+            box12.attr('id','firstRowComment'+i);
+            domWriteA.append(box12);
+
+            let domWriteBLeft = $('#firstRowComment'+i);
+            let box1 = $('<div>').addClass("col-10 text-left Name&Date fontSize10 padding10 align-self-center");
+            box1.attr('id','Name&Date'+i);
+            box1.html('<span class=blue>'+tab[i].name+'</span>'+'<span class=oblique>'+", édité le : "+'</span>'+tab[i].date);
+            domWriteBLeft.append(box1);
+
+            let domWriteBRight = $('#firstRowComment'+i);
+            let box2 = $('<div>').addClass("col-2 StarC text-left");
+            box2.attr('id','StarC'+i);
+            domWriteBRight.append(box2);
+
+            for (let y = 0; y < tab[i].stars; y++) {
+                let domWriteC = $('#StarC'+i);
+                let box3 = $('<div>').addClass("fas fa-star ");
+                box3.attr('id','star'+y);
+                domWriteC.append(box3);
+            }
+
+            let domWrite = $('#comment'+i);
+            let box = $('<div>').addClass("comment text-left ");
+            box.html(tab[i].comment);
+            domWrite.append(box);
     }
 }
+
+
+
+
+
+
+
+
+

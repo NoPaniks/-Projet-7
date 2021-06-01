@@ -1,64 +1,163 @@
-#leftAndMiddle {
-    height: 600px;
-}
-#firstRowStar>ul, #secondRowStar>ul {
-    list-style:none;
-    margin-left:0;
-    padding-left:0;
-    font-size: 15px;
-    margin-bottom: 0px !important;
-}
-li {
-    display: block;
-    float: left;
-    margin-right:25px;
-}
-.form-check-input {
-    margin-left: -1rem !important;
-}
-#map {
-    height: 100%;
-    width: 100%;
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
+/******************************************************************/
+/* leftPanel */
+/******************************************************************/
+
+#selectRestaurant {
+  overflow: auto;
+  max-height: 350px;
+  margin-bottom: 10px ;
 }
 #selectRestaurant>div {
     margin-top: 15px;
     background-color: rgba(0, 0, 255, 0.445);
     border-radius: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 #selectRestaurant>div:hover {
     background-color: rgba(0, 102, 255, 0.678);
     zoom: 1.2;
 }
-header h1 {
-    font-size: 90px;
-    font-family: 'chango';
-}
-#restaurantComment h3, #side-left h3 {
-    background-color: rgba(240, 236, 12, 0.664);
-    border: 2px solid black;
-    border-radius: 10px;
-}
-.comment {
-    height-min: 50px;
-    background-color: rgba(169, 169, 169, 0.445);
-    border: 1px solid black;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    line-height: 15px;
-    font-size: 15px;
-    padding-top: 3px;
-}
-#restaurantName {
-    font-size: 30px;
-    font-family: 'chango';
-}
-#restaurantInfo {
-    border: 2px solid black;
-    border-radius: 20px;
-    background-color: rgba(184, 174, 174, 0.493);
-    margin-bottom: 10px;
+.restaurant {
+  width: 50%;
+  font-size: 1em;
 }
 
+
+/******************************************************************/
+/* middleMap */
+/******************************************************************/
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+.h600 {
+  height: 800px;
+}
+
+
+/******************************************************************/
+/* rightPanel */
+/******************************************************************/
+
+/******************************************************************/
+/******************** INFO RESTAURANT */
+/******************************************************************/
+#restaurantInfo {
+  font-size: 0.7em;
+}
+#restaurantName {
+  font-size: 2.5em;
+  color: rgba(0, 0, 255, 0.445);
+  font-family: 'chango';
+}
+header h1 {
+  font-size: 90px;
+  font-family: 'chango';
+}
+
+/******************************************************************/
+/******************** COMMENTAIRE RESTAURANT */
+/******************************************************************/
+#restaurantComment h3 {
+  font-size: 1.5em;
+}
+
+.comment {
+  min-height: 30px;
+  background-color: rgba(240, 184, 2, 0.301);
+  margin-bottom: 10px;
+  font-size: 0.7em;
+  padding: 10px;
+}
+
+
+
+
+
+/******************************************************************/
+/* MODAL */
+/******************************************************************/
+
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
+
+/* Basic styles */
+
+.row {
+  text-align: center;
+  padding: 16px;
+}
+
+.rate {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+fieldset input {
+  display: none;
+}
+
+fieldset label {
+  float: right;
+  font-size: 0;
+  color: #d9d9d9;
+}
+
+fieldset label:before {
+  content: "\f005";
+  font-family: FontAwesome;
+  font-size: 40px;
+}
+
+fieldset label:hover,
+fieldset label:hover ~ label {
+  color: #f6c82c;
+  transition: 0.2s;
+}
+
+fieldset input:checked ~ label {
+  color: #f6c82c;
+}
+
+fieldset input:checked ~ label:hover,
+fieldset input:checked ~ label:hover ~ label {
+  color: #FFED85;
+  transition: 0.2s;
+}
+
+.fa-star:before {
+  color: #fdcb46; 
+}
+
+
+/******************************************************************/
+/* Générique */
+/******************************************************************/
+.fontSize10 {
+  font-size: 1em;
+}
+.oblique {
+  font-style: oblique;
+}
+.blue {
+  color : blue;
+  font-weight: bold;
+}
+.white {
+  background-color: white;
+}
+.grey {
+  background-color: rgba(180, 176, 176, 0.247);
+}
+.padding10 {
+  padding-left : 10px;
+}
+.padding0 {
+padding : 0;
+}
 /**********
 FONT FACE
 **********/
