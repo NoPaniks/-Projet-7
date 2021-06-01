@@ -72,13 +72,13 @@ export default class Resto {
             domWriteA.append(box12);
 
             let domWriteBLeft = $('#firstRowComment'+i);
-            let box1 = $('<div>').addClass("col-10 text-left Name&Date fontSize10 padding10 align-self-center");
+            let box1 = $('<div>').addClass("col-8 text-left Name&Date fontSize10 padding10 align-self-center");
             box1.attr('id','Name&Date'+i);
             box1.html('<span class=blue>'+tab[i].name+'</span>'+'<span class=oblique>'+", édité le : "+'</span>'+tab[i].date);
             domWriteBLeft.append(box1);
 
             let domWriteBRight = $('#firstRowComment'+i);
-            let box2 = $('<div>').addClass("col-2 StarC text-left");
+            let box2 = $('<div>').addClass("col-4 StarC text-left");
             box2.attr('id','StarC'+i);
             domWriteBRight.append(box2);
 
