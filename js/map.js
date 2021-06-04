@@ -2,36 +2,68 @@ let map ; let markers = []; let element;
 let userlng;
 let userlat;
 
-if (navigator.geolocation) {
+
+
+if (navigator.geolocation) { //géolocalisation avec javascript
     var watchId = navigator.geolocation.watchPosition(successCallback,
-        null,
-        {enableHighAccuracy:true});
+        errorGeo,
+        {
+            enableHighAccuracy:true, 
+            timeout: 120000
+        }
+        );
 }
 else {
     alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
 }
+
+
+function errorGeo(error) {
+    let msg;
+    switch(error.code) {
+        case error.TIMEOUT :
+            msg = 'le temps de la requête à expiré';
+            break;
+        case error.UNKNOW_ERROR :
+            msg = "Une erreur inconnue c'est produite";
+            break;
+        case error.POSITION_UNVAILABLE : 
+            msg = "Une erreur technique c'est produite";
+            break;
+        case error.TIMEOUT : 
+            msg = "Le temps de réponse de la requête à expiré";
+            break;
+        case error.PERMISSION_DENIED : 
+            msg = "Vous avez refuser d'activer la géolocalisation";
+            break;
+    }
+    alert (msg);
+}
 function successCallback(position){
-userlng = position.coords.longitude;
-userlat = position.coords.latitude;
-
-sessionStorage.setItem("userlat",userlat);
-sessionStorage.setItem("userlng",userlng);
-
+ userlat =  parseFloat(position.coords.latitude);
+ userlng =  parseFloat(position.coords.longitude);
+ 
+sessionStorage.setItem("userlat",position.coords.latitude);
+sessionStorage.setItem("userlng",position.coords.longitude);
+    
     let markerUser = new google.maps.Marker({
         position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
         map: map,
         icon:"https://img.icons8.com/nolan/1x/marker.png"
     });
+    map.setCenter(markerUser.getPosition());
 };
+
 function initMap() {
+    // firefox affiche un nombre trop court pour être reconnu en tant que position GPS
+    // chrome affiche le nombre float correspondant bien à la position GPS
     let mapOptions = {
         zoom: 13,
-        center: new google.maps.LatLng(userlat, userlng),
+        center: {lat : 48.8737815, lng : 2.3501649},
         mapId : 'd4bc720774e69f9d' //correspond à l'id de la map dans le MAP STYLE de google (personnalisé par S.Gilbert)
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
 }
-
 
 function addMarkers(restos) {
     $.each(markers, function() {
@@ -62,12 +94,16 @@ function addMarkers(restos) {
         //Ajoute un écouteur de clique sur chaque Marker
         marker.addListener("click", () => {
             InfoWindow.open(map,marker);
+            restos[marker.id].showStreetView();
+            $('#restaurantName').html(restos[marker.id].name);
+            $("#restaurantAddress").html(restos[marker.id].address);
+            $("#restaurantAverage").show();
+            $("#restaurantComment").show();
         })		
         marker.setMap(map);
         // Place le marqueur dans le tableau global
         markers.push(marker);
     }
-
 map.addListener("click", (mapsMouseEvent) => { //permet l'ajout de restaurant via le /main.js
     var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
         keyboard: true,

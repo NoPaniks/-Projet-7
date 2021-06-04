@@ -16,18 +16,18 @@
     <title>Abo Resto - DAF Projet 7</title>
 </head>
 <body>
-    <header class="container-fluid row d-flex justify-content-center">
-        <h1>ABO RESTO !</h1>
+    <header class="container-fluid row d-flex justify-content-center margin0">
+        <h1 id="title">ABO RESTO !</h1>
     </header>
     <main>
         <div class="container-fluid" class="row d-flex justify-content-between">
-            <div class="row d-flex justify-content-between h600">
+            <div class="row d-flex justify-content-between h800" id="row1">
                 <!-- /* leftPanel */ -->
                 <div id="leftPanel" class="col-3 text-center flex-column">
                     <div>
                         <h3>Filtres</h3>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check padding0">
                         <label>Ranking minimum : </label>
                         <select name="filterRanking" id="filterRanking">
                             <option class="filter-star" value="0" selected></option>
@@ -42,7 +42,7 @@
                     <div id="gplaces"><button>GOOGLE PLACES</button></div>
                 </div>
                 <!-- /* middleMap */ -->
-                <div id="middleMap" class="col-5 h600">
+                <div id="middleMap" class="col-5 h800">
                     <div id="map">
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                             </div>
                             <div id="Address">
                                 <label for="newAddress" class="col-form-label">Adresse:</label>
-                                <input type="text" class="form-control starForComment" id="newAddress" placeholder="14 rue des platanes, 75000 Paris" required>
+                                <input type="text" class="form-control starForComment" id="newAddress" placeholder="exemple : 14 rue des platanes, 75000 Paris" required>
                             </div>
                             <div id="NameOfCommiter">
                                 <label for="Surname" class="col-form-label">Votre Nom</label>
@@ -134,6 +134,7 @@
     
     
     <!-- SCRIPT Perso -->
+    
     <script src="json/restaurant.json"></script>
     
     <script type="module" src="js/map.js"></script>

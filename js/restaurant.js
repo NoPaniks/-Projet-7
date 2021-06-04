@@ -1,11 +1,12 @@
 export default class Resto {
-    constructor (id,name,address,lat,long,ratings) {
+    constructor (id,name,address,lat,long,ratings,placeId) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.lat = lat;
         this.long = long;
         this.ratings = ratings;
+        this.placeId = placeId;
     }
 
     displayRestaurant() { //gère l'affichage de chaque restaurant

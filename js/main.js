@@ -8,6 +8,8 @@ jQuery.when(
     
     //initialise la map via /map.js
     initMap();
+
+
 //déclaration des tableaux et variables global.
 let rName = [];let rAddress = [];let rLat = [];let rLong = [];let rRatings = [];let restos = [];
 let starsSelected;let index;let averageTab=[];
@@ -95,7 +97,6 @@ $(document).on("click","#addComment",function() {//Ajout des commentaires
     restos[index].showAverage(rRatings[index]);
 });
 map.addListener("bounds_changed", () => {
-    
     averageTab=[]
     for (let i = 0 ; i < rRatings.length; i++) { 
         let average = [];
@@ -105,35 +106,6 @@ map.addListener("bounds_changed", () => {
         averageTab.push(restos[i].numAverage(average));
     }
     showVisibleMarkers(averageTab);
-});
-$(document).on("click",".form-check-input",function() {//Filtres sur les restaurants afficher (gérer par map.js)
-    let averageTab=[]; //tableau de donnée pour la fonction
-    let min = $(this)[0].name[0]; //récupère le 1er caractère du nom de la case coché qui est un chiffre (1/2/3/4/5)
-    let element = $(this); //correspond à un input.form-check-input coché
-    tabId.push(JSON.parse(sessionStorage.getItem("tabId")));//ici on parse le format JSON de la donnée du sessionStorage
-    for (let i = 0 ; i < restos.length ; i++) {
-        $("#restaurant-"+(i+1)).hide();
-    }
-    for (let i = 0 ; i < tabId[0].length; i++) { //on boucle d'abord sur le tableau de donnée récupère dans le sessionStorage
-        let average = [];
-        for (let y = 0 ; y < restos[ (tabId[0][i])-1 ].ratings.length; y++) { //puis on boucle sur le tableau rRatings[ index récupérer ]
-            average.push(restos[ (tabId[0][i])-1 ].ratings[y].stars); //on récupère et push les valeurs de chaque commentaires de cet index
-        }
-        averageTab.push(restos[ (tabId[0][i])-1 ].numAverage(average)); //on récup et push dans le averageTab la moyenne des restaurants
-    }
-    if (element.is(':checked')) { //si une case est cochée : 
-        for (let i = 0; i < tabId[0].length; i++) {
-            if (averageTab[i] >= min) {
-                $("#restaurant-"+( tabId[0][i] )).show();
-            }
-        }
-    } else //si aucune case est cochée : 
-    for (let i = 0; i < tabId[0].length; i++) {
-        if (averageTab[i] >= 0) { 
-            $("#restaurant-"+( tabId[0][i] )).show();
-        }
-    }
-    tabId = []; //on vide le tableau pour pas stocker inutilement des données
 });
 $(document).on("click","#filterRanking",function() {
     averageTab=[]
@@ -161,19 +133,21 @@ $(document).on("click","#btnAddComment",function() {
     $("#addRestaurant").hide();
     $("#addComment").show();
 });
+//Gère l'appel vers GOOGLE PLACES
 $("#gplaces").click(function(){
     $("#selectRestaurant").empty();
     let userlat = parseFloat(sessionStorage.getItem("userlat"));
     let userlng = parseFloat(sessionStorage.getItem("userlng"));
     
     let request = {
-        location : new google.maps.LatLng(userlat, userlng),
+        //location : new google.maps.LatLng(userlat, userlng),  //=>permet de récupérer les coordonées de l'utilisateur
+        location : map.getCenter(),                             //=> permet de récupérer les coordonnées du centre de la map.
         radius : 2500,
         types : ['restaurant']
     };
-    
     let service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback); 
+
 
     });
     function checkIfAlreadyExist(result) { //fonction qui check si le restaurant existe déjà dans la base de donnée
@@ -197,8 +171,7 @@ $("#gplaces").click(function(){
                 rAddress.push(results[i].vicinity);
                 rLat.push(results[i].geometry.location.lat());
                 rLong.push(results[i].geometry.location.lng());
-                let rating = [{stars : results[i].rating}];
-                rRatings.push(rating);
+                requestDetails(results[i].place_id);
             }        
         }
             for (let i = 0 ; i < rName.length ; i++) {
@@ -206,9 +179,31 @@ $("#gplaces").click(function(){
                 restos[i].displayRestaurant();
             }
             addMarkers(restos);
-            showVisibleMarkers(rRatings);
-    }   
-    
+            showVisibleMarkers(rRatings);   
+    }
+    function requestDetails(placeID) {
+        let requestA = {
+            placeId : placeID
+        }
+        let serviceA = new google.maps.places.PlacesService(map);
+        serviceA.getDetails(requestA, callbackA);
+    }
+    function callbackA(results,status) {
+        let rating = []
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (let i = 0 ; i < results.reviews.length; i++) {
+                    let review = {
+                        stars : results.reviews[i].rating,
+                        comment : results.reviews[i].text,
+                        name : results.reviews[i].author_name
+                    };
+                    rating.push(review)
+            } 
+            rRatings.push(rating)
+        }
+        
+        
+    }
 
     
 });
