@@ -158,9 +158,25 @@ fieldset input:checked ~ label:hover ~ label {
 .padding0 {
 padding : 0;
 }
-/**********
-FONT FACE
-**********/
+.padding2 {
+  padding : 2px;
+  }
+.margin0 {
+  margin: 0;
+}
+.h600 {
+  height: 600px;
+}
+.h400 {
+  height: 400px;
+}
+.em2 {
+  font-size: 2em !important;
+}
+
+/******************************************************************/
+/* FONT FACES */
+/******************************************************************/
 @font-face {font-family: "chango";src: url('./font/Chango/Chango-Regular.ttf');}
 
 
