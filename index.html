@@ -16,14 +16,13 @@
     <title>Abo Resto - DAF Projet 7</title>
 </head>
 <body>
-    <header class="container-fluid row d-flex justify-content-center margin0">
+    <header class="container-fluid row margin0 col-xl-12 col-sm-12 col-md-12">
         <h1 id="title">ABO RESTO !</h1>
     </header>
     <main>
-        <div class="container-fluid" class="row d-flex justify-content-between">
-            <div class="row d-flex justify-content-between h800" id="row1">
+        <div class="container-fluid" class="row" id="row1">
                 <!-- /* leftPanel */ -->
-                <div id="leftPanel" class="col-3 text-center flex-column">
+                <div id="leftPanel" class="col-xl-3 col-sm-12 col-md-12">
                     <div>
                         <h3>Filtres</h3>
                     </div>
@@ -38,16 +37,16 @@
                             <option class="filter-star" value="5">5 étoiles</option>
                         </select>
                     </div>
-                    <div class="d-flex flex-column" id="selectRestaurant"></div>
+                    <div id="selectRestaurant"></div>
                     <div id="gplaces"><button>GOOGLE PLACES</button></div>
                 </div>
                 <!-- /* middleMap */ -->
-                <div id="middleMap" class="col-5 h800">
+                <div id="middleMap" class="col-xl-5 col-sm-12 col-md-12">
                     <div id="map">
                     </div>
                 </div>
                 <!-- /* rightPanel */ -->
-                <div id="rightPanel" class="col-4 text-center">
+                <div id="rightPanel" class="col-xl-4 col-sm-12 col-md-12 text-center">
                     <div id="restaurantInfo">
                         <div id="restaurantName"></div>
                         <div id="restaurantDetails">
@@ -65,7 +64,6 @@
                             <button type="button" class="btn btn-info btn" data-toggle="modal" data-target="#myModal" id="btnAddComment">Ajouter un commentaire</button>
                         </div>
                 </div>
-            </div>
             <!-- /* MODAL */ -->
             <div id="myModal" class="modal fade" role="dialog">
                 <div class="modal-dialog">

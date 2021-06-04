@@ -1,12 +1,25 @@
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
+
+#row1 {
+  display: flex;
+  justify-content: space-between;
+}
 /******************************************************************/
 /* leftPanel */
 /******************************************************************/
-
+#leftPanel {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  
+}
 #selectRestaurant {
   overflow: auto;
   max-height: 350px;
   margin-bottom: 10px ;
+  display: flex;
+  flex-direction: column;
 }
 #selectRestaurant>div {
     margin-top: 15px;
@@ -29,18 +42,16 @@
 /******************************************************************/
 
 #map {
-    height: 100%;
-    width: 100%;
-}
-.h800 {
-  height: 800px;
+    height: 600px;
 }
 
 
 /******************************************************************/
 /* rightPanel */
 /******************************************************************/
-
+#rightPanel {
+  height: 600px;
+}
 /******************************************************************/
 /******************** INFO RESTAURANT */
 /******************************************************************/
@@ -53,6 +64,7 @@
   font-family: 'chango';
 }
 header h1 {
+  width: 100%;
   font-size: 90px;
   font-family: 'chango';
 }
@@ -71,10 +83,6 @@ header h1 {
   font-size: 0.7em;
   padding: 10px;
 }
-
-
-
-
 
 /******************************************************************/
 /* MODAL */
@@ -181,3 +189,87 @@ padding : 0;
 
 
 
+/******************************************************************/
+/* MEDIA QUERRIES */
+/******************************************************************/
+@media (max-width: 1200px) {
+  header h1 {
+    font-size: 4em;
+    font-family: 'chango';
+  }
+  #row1 {
+    display: flex;
+    flex-direction: column;
+  }
+  #middleMap {
+    display: flex;
+    justify-content: center;
+  }
+  #map {
+    height: 600px;
+    width: 600px;
+  }
+  #rightPanel {
+    height: 300px;
+  }
+  #leftPanel {
+    height: 300px;
+  }
+  .restaurant {
+    font-size: 1em;
+  }
+}
+@media (max-width: 992px) {
+  header h1 {
+    font-size: 4em;
+    font-family: 'chango';
+  }
+  #middleMap {
+    display: flex;
+    justify-content: center;
+  }
+  #row1 {
+    display: flex;
+    flex-direction: column;
+  }
+  #map {
+    height: 500px;
+    width: 500px;
+  }
+  #rightPanel {
+    height: 200px;
+  }
+  #leftPanel {
+    height: 200px;
+  }
+  .restaurant {
+    font-size: 1em;
+  }
+}
+@media (max-width: 400px) {
+  header h1 {
+    font-size: 4em;
+    font-family: 'chango';
+  }
+  #middleMap {
+    display: flex;
+    justify-content: center;
+  }
+  #row1 {
+    display: flex;
+    flex-direction: column;
+  }
+  #map {
+    height: 300px;
+    width: 300px;
+  }
+  #rightPanel {
+    height: 200px;
+  }
+  #leftPanel {
+    height: 200px;
+  }
+  .restaurant {
+    font-size: 1em;
+  }
+}
