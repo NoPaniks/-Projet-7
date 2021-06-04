@@ -148,6 +148,9 @@ $("#gplaces").click(function(){
     let service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback); 
 
+        
+            
+    
 
     });
     function checkIfAlreadyExist(result) { //fonction qui check si le restaurant existe déjà dans la base de donnée
@@ -172,14 +175,15 @@ $("#gplaces").click(function(){
                 rLat.push(results[i].geometry.location.lat());
                 rLong.push(results[i].geometry.location.lng());
                 requestDetails(results[i].place_id);
-            }        
+            }   
         }
-            for (let i = 0 ; i < rName.length ; i++) {
-                restos[i] = new Resto (i+1,rName[i],rAddress[i],rLat[i],rLong[i],rRatings[i]);
-                restos[i].displayRestaurant();
-            }
-            addMarkers(restos);
-            showVisibleMarkers(rRatings);   
+        for (let i = 0 ; i < rName.length ; i++) {
+            restos[i] = new Resto (i+1,rName[i],rAddress[i],rLat[i],rLong[i],rRatings[i]);
+            restos[i].displayRestaurant();
+        } 
+        addMarkers(restos);
+        showVisibleMarkers(rRatings);
+         
     }
     function requestDetails(placeID) {
         let requestA = {
