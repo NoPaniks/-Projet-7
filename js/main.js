@@ -169,9 +169,7 @@ $("#gplaces").click(function(){
         if(status == google.maps.places.PlacesServiceStatus.OK) {
             let f;
             for (let i = 0 ; i < results.length ; i++) {
-                console.log(restos.length)
                 f = restos.length;
-                console.log(f);
                 checkIfAlreadyExist(results[i].name)
                 rName.push(results[i].name);
                 rAddress.push(results[i].vicinity);
