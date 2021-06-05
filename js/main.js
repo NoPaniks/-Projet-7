@@ -165,25 +165,29 @@ $("#gplaces").click(function(){
             }
         }
     }
-
     function callback(results,status) {
         if(status == google.maps.places.PlacesServiceStatus.OK) {
+            let f;
             for (let i = 0 ; i < results.length ; i++) {
+                console.log(restos.length)
+                f = restos.length;
+                console.log(f);
                 checkIfAlreadyExist(results[i].name)
                 rName.push(results[i].name);
                 rAddress.push(results[i].vicinity);
                 rLat.push(results[i].geometry.location.lat());
                 rLong.push(results[i].geometry.location.lng());
                 requestDetails(results[i].place_id);
+                restos[f] = new Resto ((f+1),
+                                        rName[f],
+                                        rAddress[f],
+                                        rLat[f],
+                                        rLong[f],
+                                        rRatings[f]);
+                restos[f].displayRestaurant();
             }   
         }
-        for (let i = 0 ; i < rName.length ; i++) {
-            restos[i] = new Resto (i+1,rName[i],rAddress[i],rLat[i],rLong[i],rRatings[i]);
-            restos[i].displayRestaurant();
-        } 
         addMarkers(restos);
-        showVisibleMarkers(rRatings);
-         
     }
     function requestDetails(placeID) {
         let requestA = {
