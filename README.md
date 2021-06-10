@@ -4,7 +4,7 @@ Vous avez choisi de vous lancer dans le business des avis de restaurants. Votre 
 
 Pour ce projet, vous allez devoir apprendre à utiliser des API externes, telles que celles de Google Maps et de Google Places (votre plus gros concurrent ;) ). Et ce n'est pas tout : vous allez devoir orchestrer toutes ces informations de manière cohérente dans votre application !
 
-Etape 1 : la carte des restaurants
+    Etape 1 : la carte des restaurants
 Commencez par les fondations de votre application. Il y aura 2 sections principales :
 
 Une carte Google Maps, chargée avec l'API de Google Maps
@@ -23,11 +23,11 @@ Lorsqu'on clique sur un restaurant, la liste des avis enregistrés s'affiche ave
 
 Un outil de filtre permet d'afficher uniquement les restaurants ayant entre X et Y étoiles. La mise à jour de la carte s'effectue en temps réel.
 
-Fichiers à fournir :
+                                                                        Fichiers à fournir :
 
-Code HTML / CSS / JS du projet
+                                                                        Code HTML / CSS / JS du projet
 
-Etape 2 : ajoutez des restaurants et des avis !
+    Etape 2 : ajoutez des restaurants et des avis !
 Vos visiteurs aimeraient eux aussi donner leur avis sur des restaurants !Proposez-leur :
 
 D'ajouter un avis sur un restaurant existant
@@ -38,17 +38,17 @@ Une fois un avis ou un restaurant ajouté, il apparaît immédiatement sur la ca
 
 Les informations ne seront pas sauvegardées si on quitte la page (elles restent juste en mémoire le temps de la visite).
 
-Fichiers à fournir :
+                                                                      Fichiers à fournir :
 
-Code HTML / CSS / JS du projet
+                                                                      Code HTML / CSS / JS du projet
 
-Etape 3 : intégration avec l'API de Google Places
+    Etape 3 : intégration avec l'API de Google Places
 Pour l'instant, il n'y a pas beaucoup de restaurants et pas beaucoup d'avis. Heureusement, Google Places propose une API pour récupérer des restaurants et des avis. Servez-vous en pour afficher des restaurants et avis supplémentaires sur votre carte ! Ici la documentation : https://developers.google.com/places/
 
 Vous utiliserez la search api pour trouver des restaurants dans la zone affichée.
 
 Lisez bien la documentation pour savoir comment accéder aux données de Google Places et n'hésitez pas à faire autant de recherches Google que nécessaire quand vous butez sur un problème. ;)
-Livrables
-Fichier à fournir :
+                                                                      Livrables
+                                                                      Fichier à fournir :
 
-Code HTML/CSS/JS du projet
+                                                                      Code HTML/CSS/JS du projet
