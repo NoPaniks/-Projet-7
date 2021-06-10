@@ -135,7 +135,6 @@ $(document).on("click","#btnAddComment",function() {
 });
 //Gère l'appel vers GOOGLE PLACES
 $("#gplaces").click(function(){
-    $("#selectRestaurant").empty();
     let userlat = parseFloat(sessionStorage.getItem("userlat"));
     let userlng = parseFloat(sessionStorage.getItem("userlng"));
     
@@ -155,34 +154,32 @@ $("#gplaces").click(function(){
     });
     function checkIfAlreadyExist(result) { //fonction qui check si le restaurant existe déjà dans la base de donnée
         for (let i = 0 ; i < rName.length ; i++) {
-            if (rName[i] === result) {
-                rName.splice(i);
-                rAddress.splice(i);
-                rLat.splice(i);
-                rLong.splice(i);
-                rRatings.splice(i);
-                //supprime toutes les informations du restaurant existant déjà et remplace par le restaurant ajoutée.
+            if (rName[i] === result.name) {
+                return 1
             }
         }
+        return 0
     }
     function callback(results,status) {
         if(status == google.maps.places.PlacesServiceStatus.OK) {
             let f;
             for (let i = 0 ; i < results.length ; i++) {
                 f = restos.length;
-                checkIfAlreadyExist(results[i].name)
-                rName.push(results[i].name);
-                rAddress.push(results[i].vicinity);
-                rLat.push(results[i].geometry.location.lat());
-                rLong.push(results[i].geometry.location.lng());
-                requestDetails(results[i].place_id);
-                restos[f] = new Resto ((f+1),
-                                        rName[f],
-                                        rAddress[f],
-                                        rLat[f],
-                                        rLong[f],
-                                        rRatings[f]);
-                restos[f].displayRestaurant();
+                if (checkIfAlreadyExist(results[i]) == 0) {
+                    console.log(f)
+                    rName.push(results[i].name);
+                    rAddress.push(results[i].vicinity);
+                    rLat.push(results[i].geometry.location.lat());
+                    rLong.push(results[i].geometry.location.lng());
+                    requestDetails(results[i].place_id);
+                    restos[f] = new Resto ((f+1),
+                                            rName[f],
+                                            rAddress[f],
+                                            rLat[f],
+                                            rLong[f],
+                                            rRatings[f]);
+                    restos[f].displayRestaurant();
+                }
             }   
         }
         addMarkers(restos);
@@ -197,18 +194,18 @@ $("#gplaces").click(function(){
     function callbackA(results,status) {
         let rating = []
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (let i = 0 ; i < results.reviews.length; i++) {
+            if (results.reviews) {
+                for (let i = 0 ; i < results.reviews.length; i++) {
                     let review = {
                         stars : results.reviews[i].rating,
                         comment : results.reviews[i].text,
                         name : results.reviews[i].author_name
                     };
                     rating.push(review)
-            } 
-            rRatings.push(rating)
+                }
+                rRatings.push(rating)
+            } else (console.log("pas de reviews pour : "+results.name))
         }
-        
-        
     }
 
     
