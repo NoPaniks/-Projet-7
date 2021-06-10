@@ -23,9 +23,9 @@ Lorsqu'on clique sur un restaurant, la liste des avis enregistrés s'affiche ave
 
 Un outil de filtre permet d'afficher uniquement les restaurants ayant entre X et Y étoiles. La mise à jour de la carte s'effectue en temps réel.
 
-                                                                        Fichiers à fournir :
+                                Fichiers à fournir :
 
-                                                                        Code HTML / CSS / JS du projet
+                                Code HTML / CSS / JS du projet
 
     Etape 2 : ajoutez des restaurants et des avis !
 Vos visiteurs aimeraient eux aussi donner leur avis sur des restaurants !Proposez-leur :
@@ -38,9 +38,9 @@ Une fois un avis ou un restaurant ajouté, il apparaît immédiatement sur la ca
 
 Les informations ne seront pas sauvegardées si on quitte la page (elles restent juste en mémoire le temps de la visite).
 
-                                                                      Fichiers à fournir :
+                                  Fichiers à fournir :
 
-                                                                      Code HTML / CSS / JS du projet
+                                  Code HTML / CSS / JS du projet
 
     Etape 3 : intégration avec l'API de Google Places
 Pour l'instant, il n'y a pas beaucoup de restaurants et pas beaucoup d'avis. Heureusement, Google Places propose une API pour récupérer des restaurants et des avis. Servez-vous en pour afficher des restaurants et avis supplémentaires sur votre carte ! Ici la documentation : https://developers.google.com/places/
@@ -48,7 +48,7 @@ Pour l'instant, il n'y a pas beaucoup de restaurants et pas beaucoup d'avis. Heu
 Vous utiliserez la search api pour trouver des restaurants dans la zone affichée.
 
 Lisez bien la documentation pour savoir comment accéder aux données de Google Places et n'hésitez pas à faire autant de recherches Google que nécessaire quand vous butez sur un problème. ;)
-                                                                      Livrables
-                                                                      Fichier à fournir :
+                                  Livrables
+                                  Fichier à fournir :
 
-                                                                      Code HTML/CSS/JS du projet
+                                  Code HTML/CSS/JS du projet
