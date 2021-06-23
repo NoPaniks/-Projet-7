@@ -1,15 +1,12 @@
 import Resto from './restaurant.js';
-import { initMap, addMarkers, showVisibleMarkers,map} from './map.js';
+import { initMap, addMarkers, showVisibleMarkers,map, markers} from './map.js';
 jQuery.when(
     jQuery.getJSON("./json/restaurant.json")
 ).done( function(json) {
     $("#restaurantAverage").hide();
     $("#restaurantComment").hide();
-    
     //initialise la map via /map.js
     initMap();
-
-
 //déclaration des tableaux et variables global.
 let rName = [];let rAddress = [];let rLat = [];let rLong = [];let rRatings = [];let restos = [];
 let starsSelected;let index;let averageTab=[];
@@ -136,8 +133,7 @@ $(document).on("click","#btnAddComment",function() {
 //Gère l'appel vers GOOGLE PLACES
 $("#gplaces").click(function(){
     let userlat = parseFloat(sessionStorage.getItem("userlat"));
-    let userlng = parseFloat(sessionStorage.getItem("userlng"));
-    
+    let userlng = parseFloat(sessionStorage.getItem("userlng")); 
     let request = {
         //location : new google.maps.LatLng(userlat, userlng),  //=>permet de récupérer les coordonées de l'utilisateur
         location : map.getCenter(),                             //=> permet de récupérer les coordonnées du centre de la map.
@@ -146,11 +142,6 @@ $("#gplaces").click(function(){
     };
     let service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback); 
-
-        
-            
-    
-
     });
     function checkIfAlreadyExist(result) { //fonction qui check si le restaurant existe déjà dans la base de donnée
         for (let i = 0 ; i < rName.length ; i++) {
@@ -166,7 +157,6 @@ $("#gplaces").click(function(){
             for (let i = 0 ; i < results.length ; i++) {
                 f = restos.length;
                 if (checkIfAlreadyExist(results[i]) == 0) {
-                    console.log(f)
                     rName.push(results[i].name);
                     rAddress.push(results[i].vicinity);
                     rLat.push(results[i].geometry.location.lat());
@@ -207,8 +197,6 @@ $("#gplaces").click(function(){
             } else (console.log("pas de reviews pour : "+results.name))
         }
     }
-
-    
 });
 
  

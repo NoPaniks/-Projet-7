@@ -122,9 +122,6 @@ map.addListener("click", (mapsMouseEvent) => { //permet l'ajout de restaurant vi
     });
 }
 
-$(document).on("click",".form-check-input",function() {
-    element = ($(this));
-});
  function showVisibleMarkers(averageTab) { //gère les restaurant visible dans la partie de gauche
     let tabId = [];
     let bounds = map.getBounds();
@@ -154,5 +151,5 @@ $(document).on("click",".form-check-input",function() {
 }
 
 
-export { initMap, addMarkers, showVisibleMarkers,map };
+export { initMap, addMarkers, showVisibleMarkers,map, markers };
 
