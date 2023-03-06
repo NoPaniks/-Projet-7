@@ -1,6 +1,7 @@
 let map ; let markers = []; let element;
 let userlng;
 let userlat;
+const ApiKey = "";
 
 
 
@@ -86,7 +87,7 @@ function addMarkers(restos) {
             "<h6>"+restos[i].name+"</h6>" +
             "<br><p>"+ restos[i].address + "</p>" +
             '<br><img src="https://maps.googleapis.com/maps/api/streetview?size=200x200&location='+restos[i].lat+","+restos[i].long+
-            '&fov=80&heading=70&pitch=0&key=AIzaSyB1UzDu9tfrHhpV_QcXAP5Yubctg0_tbCc"</img>';
+            '&fov=80&heading=70&pitch=0&key="+ApiKey</img>';
 
         const InfoWindow = new google.maps.InfoWindow({
             content : contentString,
